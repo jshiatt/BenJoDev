@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="../CSS/styles.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <script src="../script/jquery-3.3.1.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <p>BenJoDev</p>
+        </div>
+
+        <div class="navbar">
+            <a href="../index.html"> Home</a> 
+            <a href="ben.html"> Benjamin Griggs</a>
+            <a class="active" href="minecraft.html"> Minecraft Server</a>
+            <a href="feedback.html" style="float: right"> Feedback</a> 
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <ul class="sidebar">
+                    <li><a id="status" class= "active">Status</a></li>
+                    <li><a id="join">Join</a></li>
+                </ul>
+            </div>
+            <div id="content" class="col-5 ">
+                <p id="left"></p>
+                <p id="right"></p>
+            </div>
+            <div id="image" class="col-3" style="float: right;">
+                <img src="../images/minecraft1.png" class="imgCard">
+            </div>
+        </div>
+        
+    </body>
+    <script>        
+        $(document).ready(function(){
+            if($('#status').hasClass('active')){ 
+                $("#left").html("<p>Checking Server Status...</p>");
+                checkStatus();
+            }//if end
+            $("#status").click(function(){
+                $("#status").addClass("active");
+                $("#join").removeClass("active");
+                $("#image").html('<img src="../images/minecraft1.png" class="imgCard">');
+                checkStatus();
+            });
+            $("#join").click(function(){
+                $("#join").addClass("active");
+                $("#status").removeClass("active");
+                $("#left").html("this is left");
+                $("#right").html("this is right");
+                $("#image").html('<img src="../images/minecraft2.png" class="imgCard">');
+            });
+            function checkStatus(){
+                $.getJSON('https://api.mcsrvstat.us/1/benjodev.com', function(status) {
+                    if (status.debug.ping == false){
+                        $("#left").html('<i class="far fa-times-circle" style="color:red"></i>'+'    '+status.hostname+'<p>'+'('+status.ip+':'+status.port+')'+'</p>');
+                        $("#right").html('<i class="far fa-user" style="color:#a663f2"></i>'+"   "+"The Minecraft Server is Offline.");
+                    }
+                    if (status.debug.ping == true){
+                        $("#left").html('<i class="far fa-check-circle" style="color:green"></i>'+'  '+status.hostname+'<p>'+'('+status.ip+':'+status.port+')'+'</p>');
+                        $("#right").html('<i class="far fa-user" style="color:#a663f2"></i>'+"   "+status.players.online+"/"+status.players.max+" players online.");
+                        //Show a list of players
+                        if(status.players.online != 0){
+                            $.each(status.players.list, function(index, player){
+                                $("#right").append('<li class="playerList">'+player+'</li>');
+                            });//player loop end  
+                        } 
+                    }
+                });//getJSON end   
+            }// checkStatus end  
+        });//document end
+    </script>
+</html>

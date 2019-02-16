@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>BenJoDev</title>
+        <link rel="stylesheet" href="../CSS/styles.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <script src="../script/jquery-3.3.1.js"></script>
+    </head>
+    
+    <body>
+        <div class="header">
+            <p>BenJoDev</p>
+        </div>
+        <div class="navbar">
+            <a href="../index.html">Home</a> 
+            <a class="active" href="ben.html">Benjamin Griggs</a>
+            <a href="minecraft.html"> Minecraft Server</a>
+            <a href="feedback.html" style="float: right"> Feedback</a> 
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <ul class="sidebar">
+                    <li><a id="about" class= "active">About Me</a></li>
+                    <li><a id="skill" >Skills</a></li>
+                    <li><a id= project>Projects</a></li>
+                    <li><a href="../documents/Resume.pdf" target="_blank" class="sidebarA">Résumé</a></li>
+                    <li><a id=contact>Contact</a></li>
+                </ul>
+            </div>
+            <div id="content" class="col-5 ">
+                <p id="left"></p>
+                <p id="right"></p>
+            </div>
+            <div class="col-3" style="float: right">
+                <img src="../images/wedding.jpg" class="imgCard">
+            </div>
+        </div>
+    </body>
+        <script>
+            <!-- JavaScript -->
+            function clickIn(){
+                var win = window.open("https://www.linkedin.com/in/benjamin-griggs", '_blank');
+                win.focus();
+            }
+            function clickCPM(){
+                var win = window.open("https://cpm.mendixcloud.com", '_blank');
+                win.focus();
+            }
+            <!-- jQuery -->
+            $(document).ready(function(){
+                $("#content").load("subPages/about.html");
+                $("#skill").click(function(){
+                    $("#skill").addClass("active");
+                    $("#about").removeClass("active");
+                    $("#project").removeClass("active");
+                    $("#contact").removeClass("active");
+                    $("#content").load("subPages/skill.html");
+                });
+                $("#about").click(function(){
+                    $("#about").addClass("active");
+                    $("#skill").removeClass("active");
+                    $("#project").removeClass("active");
+                    $("#contact").removeClass("active");
+                    $("#content").load("subPages/about.html");
+                });
+                $("#project").click(function(){
+                    $("#project").addClass("active");
+                    $("#skill").removeClass("active");
+                    $("#about").removeClass("active");
+                    $("#contact").removeClass("active");
+                    $("#content").load("subPages/project.html");
+                });
+                $("#contact").click(function(){
+                    $("#contact").addClass("active");
+                    $("#about").removeClass("active");
+                    $("#project").removeClass("active");
+                    $("#skill").removeClass("active");
+                    $("#content").load("subPages/cards.html");
+                });
+            });
+    </script>
+</html>
